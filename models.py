@@ -13,7 +13,7 @@ Base = declarative_base()
 
 class DataBase(object):
     """
-    Deals with the database
+    Performs general database operations.
     """
     def __init__(self,
                  dbtype="postgres",
@@ -52,6 +52,9 @@ class DataBase(object):
         self.execute("delete from \"{}\"".format(tablename))
 
     def execute(self, query):
+        """
+        Executes a query on the database.
+        """
         conn = self.engine.connect()
         conn.execute("commit")
         try:
