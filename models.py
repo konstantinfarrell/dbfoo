@@ -123,7 +123,6 @@ class User(Base, DataBase):
     def random_last_name(self):
         return self.pick_random('data/lastnames.txt')
 
-
     def random_city(self):
         return self.pick_random('data/cities.txt')
 
