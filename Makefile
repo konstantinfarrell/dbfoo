@@ -5,16 +5,20 @@ PYTHON = python3.5
 
 run:
 	clear
-	$(PYTHON) main.py
+	$(VENV_DIR)/bin/$(PYTHON) main.py
 
 init:
 	rm -rf $(VENV_DIR)
 	@$(MAKE) $(VENV_DIR)
+	createdb dbfoo
 
 clean:
 	find . -iname "*.pyc" -delete
 	find . -iname "*.pyo" -delete
 	find . -iname "__pycache__" -delete
+
+test:
+	$(PYTHON) tests.py
 
 pep8:
 	clear

@@ -3,8 +3,10 @@ from models import User
 
 
 class DbFoo(DataBase):
-    """ """
-    def populate_users_table(self, num):
+    """
+    Populates the database with mock data.
+    """
+    def generate_users_table(self, num):
         for i in range(num):
             u = User()
             u.randomize()
@@ -14,4 +16,4 @@ class DbFoo(DataBase):
 if __name__ == "__main__":
     dbstring = "postgres://postgres@/dbfoo"
     db = DbFoo(dbname='dbfoo')
-    db.populate_users_table(1)
+    db.generate_users_table(1)

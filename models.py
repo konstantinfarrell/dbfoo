@@ -40,8 +40,6 @@ class DataBase(object):
         self.metadata = MetaData(self.engine)
         self.Session = sessionmaker(bind=self.engine, expire_on_commit=False)
 
-        self.create_database(dbname)
-
         Base.metadata.create_all(self.engine)
 
     def create_database(self, name):
@@ -100,6 +98,9 @@ class User(Base, DataBase):
         self.phone = phone
 
     def random_address(self):
+        """
+        Generates a random street address
+        """
         number = randrange(1, 9999)
         specific = choice(self.specifics)
         generic = choice(self.generics)
@@ -107,6 +108,9 @@ class User(Base, DataBase):
         return "{} {} {}".format(str(number), specific, generic)
 
     def pick_random(self, path):
+        """
+        Picks a random line from a specified file.
+        """
         choices = open(path, 'r').read().splitlines()
         return choice(choices)
 
@@ -116,9 +120,6 @@ class User(Base, DataBase):
     def random_last_name(self):
         return self.pick_random('data/lastnames.txt')
 
-    def create_email(self, username):
-        suffix = self.pick_random('data/email_providers.txt')
-        return "{}@{}".format(username, suffix)
 
     def random_city(self):
         return self.pick_random('data/cities.txt')
@@ -127,8 +128,11 @@ class User(Base, DataBase):
         return self.pick_random('data/states.txt')
 
     def random_phone(self):
-        phone = "({}) {}-{}".format(randrange(100, 999),
-                                    randrange(100, 999), randrange(1000, 9999))
+        """
+        Generates a random phone number.
+        """
+        phone = "{}{}{}".format(randrange(100, 999),
+                                randrange(100, 999), randrange(1000, 9999))
         return phone
 
     def randomize(self):
@@ -139,10 +143,15 @@ class User(Base, DataBase):
         self.first_name = self.random_first_name()
         self.last_name = self.random_last_name()
         username = "{}{}".format(self.first_name, self.last_name).lower()
-
         self.email = self.create_email(username)
         self.address = self.random_address()
         self.city = self.random_city()
         self.state = self.random_state()
         self.phone = self.random_phone()
 
+    def create_email(self, username):
+        """
+        Generates a basic email address
+        """
+        suffix = self.pick_random('data/email_providers.txt')
+        return "{}@{}".format(username, suffix)
