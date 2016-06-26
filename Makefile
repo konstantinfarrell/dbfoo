@@ -21,7 +21,7 @@ test:
 	$(PYTHON) tests.py
 
 coverage:
-	coverage run tests.py
+	coverage run dbfoo/tests.py
 	coverage html
 
 pep8:

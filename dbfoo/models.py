@@ -87,7 +87,7 @@ class User(Base, DataBase):
     phone = Column(String)
 
     generics = ['st', 'ln', 'rd', 'ave', 'blvd', 'drive', 'way']
-    specifics = open('data/streetnames.txt', 'r').read().splitlines()
+    specifics = open('dbfoo/data/streetnames.txt', 'r').read().splitlines()
 
     def __init__(self, first_name=None, last_name=None,
                  email=None, address=None, city=None, state=None, phone=None):
@@ -118,16 +118,16 @@ class User(Base, DataBase):
         return choice(choices)
 
     def random_first_name(self):
-        return self.pick_random('data/firstnames.txt')
+        return self.pick_random('dbfoo/data/firstnames.txt')
 
     def random_last_name(self):
-        return self.pick_random('data/lastnames.txt')
+        return self.pick_random('dbfoo/data/lastnames.txt')
 
     def random_city(self):
-        return self.pick_random('data/cities.txt')
+        return self.pick_random('dbfoo/data/cities.txt')
 
     def random_state(self):
-        return self.pick_random('data/states.txt')
+        return self.pick_random('dbfoo/data/states.txt')
 
     def random_phone(self):
         """
@@ -155,5 +155,5 @@ class User(Base, DataBase):
         """
         Generates a basic email address
         """
-        suffix = self.pick_random('data/email_providers.txt')
+        suffix = self.pick_random('dbfoo/data/email_providers.txt')
         return "{}@{}".format(username, suffix)
