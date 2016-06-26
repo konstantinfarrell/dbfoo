@@ -5,7 +5,7 @@ PYTHON = python3.5
 
 run:
 	clear
-	$(VENV_DIR)/bin/$(PYTHON) main.py
+	$(VENV_DIR)/bin/$(PYTHON) dbfoo/main.py
 
 init:
 	rm -rf $(VENV_DIR)
@@ -20,9 +20,13 @@ clean:
 test:
 	$(PYTHON) tests.py
 
+coverage:
+	coverage run tests.py
+	coverage html
+
 pep8:
 	clear
-	$(VENV_DIR)/bin/flake8 main.py
+	$(VENV_DIR)/bin/flake8 dbfoo/main.py
 
 $(VENV_DIR):
 	virtualenv $(VENV_DIR)
