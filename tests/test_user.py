@@ -1,11 +1,13 @@
 import unittest
-from dbfoo.main import DbFoo
+from unittest import TestCase
+from dbfoo.dbfoo import DbFoo
 from dbfoo.models import User, DataBase, Base
 from sqlalchemy import func
 
-class TestUser(unittest.TestCase):
+class TestUser(TestCase):
     def setUp(self):
-        self.db = DbFoo(dbname='dbfoo')
+        self.dbname = 'dbfootest'
+        self.db = DataBase(dbname=self.dbname)
         self.users = User()
         self.session = self.db.Session()
 
