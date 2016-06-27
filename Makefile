@@ -1,7 +1,7 @@
 .PHONY: run install clean
 
 VENV_DIR ?= .env
-PYTHON = python3.5
+PYTHON = python
 
 run:
 	clear
@@ -23,8 +23,8 @@ test:
 
 coverage:
 	clear
-	coverage run -m unittest discover
-	coverage html
+	$(VENV_DIR)/bin/coverage run -m unittest discover
+	$(VENV_DIR)/bin/coverage html
 
 pep8:
 	clear
