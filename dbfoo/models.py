@@ -64,11 +64,11 @@ class DataBase(object):
         self.execute("delete from \"{}\"".format(tablename))
 
     def execute_root(self, query):
+        name = self.dbname
         self.dbname = 'postgres'
         self.engine = create_engine(self.dbstring)
         self.engine.connect()
         self.execute(query)
-        self.engine.close()
         self.dbname = name
 
     def execute(self, query):
