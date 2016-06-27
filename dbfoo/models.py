@@ -3,7 +3,7 @@ from random import choice, randrange
 from sqlalchemy import Column
 from sqlalchemy import Integer, String
 from sqlalchemy import MetaData, create_engine
-from sqlalchemy.exc import ProgrammingError
+from sqlalchemy.exc import ProgrammingError, OperationalError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -28,28 +28,48 @@ class DataBase(object):
         self.dbuser = dbuser
         self.dbpass = dbpass
 
-        dbstring = "{dbtype}://{user}:{dbpass}@{host}/{name}".format(
-                dbtype=self.dbtype,
-                user=self.dbuser,
-                dbpass=self.dbpass,
-                host=self.dbhost,
-                name=self.dbname)
-
-        self.engine = create_engine(dbstring)
+        self.engine = create_engine(self.dbstring)
+        try:
+            self.engine.connect()
+        except OperationalError:
+            self.create_database(dbname)
+            self.engine = create_engine(self.dbstring)
+            self.engine.connect()
 
         self.metadata = MetaData(self.engine)
         self.Session = sessionmaker(bind=self.engine, expire_on_commit=False)
 
         Base.metadata.create_all(self.engine)
 
+    @property
+    def dbstring(self):
+        dbstring = "{dbtype}://{user}:{dbpass}@{host}/{name}".format(
+                dbtype=self.dbtype,
+                user=self.dbuser,
+                dbpass=self.dbpass,
+                host=self.dbhost,
+                name=self.dbname)
+        return dbstring
+
     def create_database(self, name):
-        self.execute("create database {}".format(name))
+        self.execute_root("create database {}".format(name))
+
+    def drop_database(self, name):
+        self.execute_root("drop database {}".format(name))
 
     def drop_table(self, tablename):
         self.execute("drop table \"{}\"".format(tablename))
 
     def clean_table(self, tablename):
         self.execute("delete from \"{}\"".format(tablename))
+
+    def execute_root(self, query):
+        self.dbname = 'postgres'
+        self.engine = create_engine(self.dbstring)
+        self.engine.connect()
+        self.execute(query)
+        self.engine.close()
+        self.dbname = name
 
     def execute(self, query):
         """

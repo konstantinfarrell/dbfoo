@@ -12,7 +12,3 @@ class DbFoo(DataBase):
             u.randomize()
             self.store(u)
 
-if __name__ == "__main__":
-    dbstring = "postgres://postgres@/dbfoo"
-    db = DbFoo(dbname='dbfoo')
-    db.generate_users_table(1)
