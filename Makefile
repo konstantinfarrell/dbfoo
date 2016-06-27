@@ -20,7 +20,10 @@ test:
 	clear
 	$(VENV_DIR)/bin/$(PYTHON) -m unittest discover
 
-travis:
+travis-install:
+	pip install -r requirements.txt
+
+travis-test:
 	$(PYTHON) -m unittest discover
 
 coverage:
