@@ -19,7 +19,7 @@ clean:
 
 test:
 	clear
-	$(PYTHON) -m unittest discover
+	$(VENV_DIR)/bin/$(PYTHON) -m unittest discover
 
 coverage:
 	clear
