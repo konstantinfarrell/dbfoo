@@ -16,7 +16,7 @@ class DataBase(object):
     Performs general database operations.
     """
     def __init__(self,
-                 dbtype="postgres",
+                 dbtype="postgresql",
                  dbhost="",
                  dbuser="postgres",
                  dbpass="",
@@ -114,8 +114,9 @@ class User(Base, DataBase):
         """
         Picks a random line from a specified file.
         """
-        choices = open(path, 'r').read().splitlines()
-        return choice(choices)
+        with open(path, 'r') as f:
+            choices = f.read().splitlines()
+            return choice(choices)
 
     def random_first_name(self):
         return self.pick_random('dbfoo/data/firstnames.txt')

@@ -1,6 +1,6 @@
 import unittest
-from main import DbFoo
-from models import User, DataBase
+from dbfoo.main import DbFoo
+from dbfoo.models import User, DataBase, Base
 from sqlalchemy import func
 
 class TestUser(unittest.TestCase):
@@ -11,20 +11,21 @@ class TestUser(unittest.TestCase):
         super().setUp()
 
     def test_add_user(self):
-        count = self.session.query(func.count(self.users.first_name)).scalar()
+        count = self.session.query(User).count()
         u = User()
         u.randomize()
         self.db.store(u)
-        new_count = self.session.query(func.count(self.users.first_name)).scalar()
+        new_count = self.session.query(User).count()
         self.assertEqual(count+1, new_count)
 
     def test_add_user_from_init(self):
-        count = func.count(self.users)
+        count = self.session.query(User).count()
         u = User(first_name='foo', last_name='bar',
                  email='foobar@foobar.net', address='1123 1st st',
                  city='Portland', state='OR', phone='(555) 112-2013')
         self.db.store(u)
-        self.assertEqual(count+1, func.count(self.users))
+        new_count = self.session.query(User).count()
+        self.assertEqual(count+1, new_count)
 
 if __name__ == "__main__":
     unittest.main()

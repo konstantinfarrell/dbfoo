@@ -18,10 +18,10 @@ clean:
 	find . -iname "__pycache__" -delete
 
 test:
-	$(PYTHON) tests.py
+	$(PYTHON) -m unittest discover
 
 coverage:
-	coverage run dbfoo/tests.py
+	coverage run -m unittest discover
 	coverage html
 
 pep8:
