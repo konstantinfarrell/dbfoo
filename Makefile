@@ -18,9 +18,11 @@ clean:
 	find . -iname "__pycache__" -delete
 
 test:
+	clear
 	$(PYTHON) -m unittest discover
 
 coverage:
+	clear
 	coverage run -m unittest discover
 	coverage html
 
