@@ -1,2 +1,7 @@
 [run]
 source = dbfoo
+
+[report]
+exclude_lines=
+    pragme: no cover
+    if __name__ == .__main__.:
