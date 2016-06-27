@@ -8,7 +8,6 @@ class TestUser(unittest.TestCase):
         self.db = DbFoo(dbname='dbfoo')
         self.users = User()
         self.session = self.db.Session()
-        super().setUp()
 
     def test_add_user(self):
         count = self.session.query(User).count()
