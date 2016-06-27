@@ -20,6 +20,9 @@ test:
 	clear
 	$(VENV_DIR)/bin/$(PYTHON) -m unittest discover
 
+travis:
+	$(PYTHON) -m unittest discover
+
 coverage:
 	clear
 	$(VENV_DIR)/bin/coverage run -m unittest discover
