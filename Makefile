@@ -5,12 +5,11 @@ PYTHON = python
 
 run:
 	clear
-	$(VENV_DIR)/bin/$(PYTHON) dbfoo/main.py
+	$(VENV_DIR)/bin/$(PYTHON) main.py
 
 init:
 	rm -rf $(VENV_DIR)
 	@$(MAKE) $(VENV_DIR)
-	createdb dbfoo
 
 clean:
 	find . -iname "*.pyc" -delete
