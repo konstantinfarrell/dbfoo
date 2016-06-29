@@ -80,7 +80,9 @@ class DataBase(object):
         try:
             conn.execute(query)
         except ProgrammingError as e:
-            pass
+            print(e)
+        except OperationalError as e:
+            print(e)
         conn.close()
 
     def store(self, data):
@@ -139,13 +141,13 @@ class User(Base, DataBase):
             return choice(choices)
 
     def random_first_name(self):
-        return self.pick_random('dbfoo/data/firstnames.txt')
+        return self.pick_random('dbfoo/data/firstnames.txt').title()
 
     def random_last_name(self):
-        return self.pick_random('dbfoo/data/lastnames.txt')
+        return self.pick_random('dbfoo/data/lastnames.txt').title()
 
     def random_city(self):
-        return self.pick_random('dbfoo/data/cities.txt')
+        return self.pick_random('dbfoo/data/cities.txt').title()
 
     def random_state(self):
         return self.pick_random('dbfoo/data/states.txt')
