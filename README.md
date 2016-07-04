@@ -9,6 +9,8 @@ Currently only populates a generic "user" table
 
 ## Install
 
+First make sure you have Postgres installed. Then
+
     make init
 
 ## Test
