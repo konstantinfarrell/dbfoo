@@ -11,4 +11,3 @@ class DbFoo(DataBase):
             u = User()
             u.randomize()
             self.store(u)
-

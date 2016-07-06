@@ -1,10 +1,10 @@
 from setuptools import find_packages, setup
 
-requirements = open('requirements.txt','r').read().splitlines()
+requirements = open('requirements.txt', 'r').read().splitlines()
 
 setup(
     name='dbfoo',
-    version='0.1.0'
+    version='0.1.0',
     description='A package for generating mock databases.',
     long_description='Displayed on PyPI project page.',
     url='',

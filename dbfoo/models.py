@@ -17,9 +17,9 @@ class DataBase(object):
     """
     def __init__(self,
                  dbtype="postgresql",
-                 dbhost="",
+                 dbhost="localhost",
                  dbuser="postgres",
-                 dbpass="",
+                 dbpass="postgres",
                  dbname="postgres"):
 
         self.dbname = dbname
@@ -64,6 +64,9 @@ class DataBase(object):
         self.execute("delete from \"{}\"".format(tablename))
 
     def execute_root(self, query):
+        """
+        Connects to the 'postgres' database to perform operations.
+        """
         name = self.dbname
         self.dbname = 'postgres'
         self.engine = create_engine(self.dbstring)
